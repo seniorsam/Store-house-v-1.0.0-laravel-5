@@ -35,5 +35,4 @@ Imagine that you have a store house, and you want you manage it and allow other 
 * gravatar for users profile pictures.
 
 
-#### Thank you 
-#### sameh sayed
+  #### Thank you 
