@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: storeHouse
+        psr4_prefix: storeHouse
+        src_path: app
