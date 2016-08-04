@@ -43,6 +43,12 @@
 			</span>
 		@endif	
 	</div>
+
+	<div class="checkbox">
+		<label>
+			<input type="checkbox" name="item_active"> Publish this item
+		</label>
+	</div>
  
 	<button type="submit" class="btn btn-primary">Submit</button>
 	<input type="hidden" name="_token" value="{{Session::token()}}">

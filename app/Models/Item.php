@@ -11,11 +11,16 @@ class Item extends Model {
 		'item_picture', 
 		'item_quantity', 
 		'item_description',
+		'item_active',
 	];
 
 	public function users(){
 		// don't forget to return the data
 		return $this->belongsTo('storeHouse\Models\User','sthuser_id');
+	}
+
+	public function scopeActive($query){
+		return $query->where('item_active', '1');
 	}
 
 }

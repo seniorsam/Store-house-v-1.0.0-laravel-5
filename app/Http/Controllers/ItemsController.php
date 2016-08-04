@@ -7,7 +7,7 @@ class ItemsController extends Controller {
 
 	public function getItems()
 	{
-		$items = Item::all();
+		$items = Item::active()->get();
 		return view('item.items')->withItems($items);
 	}
 

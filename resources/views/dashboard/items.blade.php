@@ -16,8 +16,9 @@
 					<th>Picture</th> 
 					<th>Quantity</th> 
 					<th>Description</th> 
+					<th class="text-success">State</th> 
 					<th>Insertd by</th>  
-					<th>Actions</th>  
+					<th class="text-info">Actions</th>  
 					<th class="text-danger">Delete</th> 
 				</tr> 
 			</thead>
@@ -31,6 +32,7 @@
 						</td> 
 						<td>{{$item->item_quantity}}</td> 
 						<td>{{$item->item_description}}</td> 
+						<td class="text-success">{{$item->item_active ? 'published' : 'not published'}}</td> 
 						<td>{{$item->users->username}}</td> 
 						<td>
 							<!-- <a href="#" title="mail this user"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a> -->

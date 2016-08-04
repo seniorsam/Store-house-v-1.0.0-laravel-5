@@ -18,6 +18,7 @@ class DashboardController extends Controller {
 	| Users center
 	|--------------------------------------------------------------------------
 	*/
+
 	public function getUsers()
 	{
 		$users = User::all();
@@ -73,7 +74,7 @@ class DashboardController extends Controller {
 	public function postItemAdd(Request $request){
 		
 		$this->validate($request,[
-			'item_name' => 'required|max:50|alpha-dash|unique:sthitems',
+			'item_name' => 'required|max:50|unique:sthitems',
 			'item_picture' => 'image',
 			'item_quantity' => 'required|integer',
 			'item_description' => 'required|min:10|max:250',
@@ -83,12 +84,17 @@ class DashboardController extends Controller {
 		* Handle picture processing
 		*/
 
-		$imageName = rand('0',1000000000).'-'.$request->file('item_picture')->getClientOriginalName();
-		$request->file('item_picture')->move(public_path('images/itemPictures/'), $imageName);
+		$imageName = '';
+
+		if($request->hasFile('item_picture')){
+	        $imageName = rand('0',1000000000).'-'.$request->file('item_picture')->getClientOriginalName();
+			$request->file('item_picture')->move(public_path('images/itemPictures/'), $imageName);
+		}
 
 		/*
 		* Handle user insertion process
 		*/
+		
 		$user = User::find(Auth::user()->id);
 
 		$item = Item::create([
@@ -96,6 +102,7 @@ class DashboardController extends Controller {
 			'item_picture' => $imageName,
 			'item_quantity' => $request->input('item_quantity'),
 			'item_description' => $request->input('item_description'),
+			'item_active' => $request->has('item_active'),
 		]);
 
 		$user->items()->save($item);
@@ -111,7 +118,7 @@ class DashboardController extends Controller {
 	public function postItemUpdate(Request $request){
 
 		$this->validate($request,[
-			'item_name' => 'required|max:50|alpha-dash',
+			'item_name' => 'required|max:50',
 			'item_picture' => 'image',
 			'item_quantity' => 'required|integer',
 			'item_description' => 'required|min:10|max:250',
@@ -121,10 +128,13 @@ class DashboardController extends Controller {
 		* Handle picture if exist
 		*/
 
-		if($request->file('item_picture')){
+		$flag = 0;
+
+		if($request->hasFile('item_picture')){
 
 			$imageName = rand('0',1000000000).'-'.$request->file('item_picture')->getClientOriginalName();
 			$request->file('item_picture')->move(public_path('images/itemPictures/'), $imageName);
+			$flag = 1;
 
 		}
 
@@ -132,9 +142,10 @@ class DashboardController extends Controller {
 			->where('id',$request->input('_id'))
 			->update([
 				'item_name' => $request->input('item_name'),
-				'item_picture' => $request->file('item_picture') ? $imageName : $request->input('item_picture_old'),
+				'item_picture' => $flag ? $imageName : $request->input('item_picture_old'),
 				'item_quantity' => $request->input('item_quantity'),
 				'item_description' => $request->input('item_description'),
+				'item_active' => $request->has('item_active'),
 			]);
 
 		return redirect()->route('dashboard.items')->withInfo('Item updated successfully');	

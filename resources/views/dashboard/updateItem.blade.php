@@ -44,6 +44,13 @@
 			</span>
 		@endif	
 	</div>
+
+	<div class="checkbox">
+		<label>
+			<input type="checkbox" name="item_active" {{ $item->item_active ? "checked" : ""}}> 
+			Publish this item (this item is currently {{ $item->item_active ? "Published" : "Not published"}} )
+		</label>
+	</div>
  
 	<button type="submit" class="btn btn-default">Submit</button>
 	<input type="hidden" name="_token" value="{{Session::token()}}">
