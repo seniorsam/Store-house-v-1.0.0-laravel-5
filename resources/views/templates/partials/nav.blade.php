@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-classic">
   <div class="container-fluid">
 
     <!-- Mobile menu trigger -->

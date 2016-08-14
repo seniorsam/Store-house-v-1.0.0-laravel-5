@@ -1,4 +1,7 @@
 @extends('templates.default')
+@section('title')
+Store house | Your profile
+@stop
 @section('content')
 	<div class="panel panel-primary">
 		<div class="panel-heading"><h4><span class="glyphicon glyphicon-book" aria-hidden="true"></span> {{$user->username}} profile:</h4></div>
@@ -8,11 +11,10 @@
 			<h3><span class="label label-default">Email:    {{$user->email ? $user->email : 'not included'}}</span></h3>
 			<h3><span class="label label-default">Address:  {{$user->address ? $user->address : 'not included'}}</span></h3>
 			<h3><span class="label label-default">Phone:    {{$user->phone ? $user->phone : 'not included'}}</span></h3><hr>
-			@if(Auth::user()->id === $user->id)
-				<a href="{{route('user.profile.update')}}">Update my user profile user</a>
-			@endif
 			
-			<br><br><br>
+			@if(Auth::user()->id === $user->id)
+				<a href="{{route('user.profile.update')}}">Update my user profile</a>
+			@endif
 
 			<h3>Your discussions:</h3><hr>
 			@if($discussions->count() == 0)
@@ -28,7 +30,7 @@
 						{{$discussion->disc_body}}
 						<br>
 						<span class="label label-default">
-							{{$discussion->comments->count()}} Comments
+							{{$discussion->comments()->active()->count()}} Comments
 						</span>
 					</div>
 					<hr>					

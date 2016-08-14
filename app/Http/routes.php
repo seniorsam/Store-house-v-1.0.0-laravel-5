@@ -76,72 +76,120 @@ Route::post('/profile/update',[
 |--------------------------------------------------------------------------
 */
 
-Route::get('dashboard',[
-	'uses' => 'DashboardController@index',
-	'as' => 'dashboard.index',
-	'middleware' => ['auth', 'auth.admin'],
-]);
+Route::group([
 
-Route::get('dashboard/users',[
-	'uses' => 'DashboardController@getUsers',
-	'as' => 'dashboard.users',
-	'middleware' => ['auth', 'auth.admin'],
-]);
+		'middleware' => ['auth', 'auth.admin'],
+		'prefix' => 'dashboard'
 
-Route::get('dashboard/{username}/update',[
-	'uses' => 'DashboardController@getUserUpdate',
-	'as' => 'dashboard.user.update',
-	'middleware' => ['auth', 'auth.admin'],
-]);
+	],function(){
 
-Route::post('dashboard/{username}/update',[
-	'uses' => 'DashboardController@postUserUpdate',
-	'middleware' => ['auth', 'auth.admin'],
-]);
+	/******************
+	* Dashboard users *
+	*******************/	
 
-Route::get('dashboard/{username}/delete',[
-	'uses' => 'DashboardController@getUserDelete',
-	'as'   => 'dashboard.user.delete',
-	'middleware' => ['auth', 'auth.admin'],
-]);
+	Route::get('/',[
+		'uses' => 'DashboardController@index',
+		'as' => 'dashboard.index',
+	]);
 
-/******************
-* Dashboard items *
-*******************/
+	Route::get('users',[
+		'uses' => 'DashboardController@getUsers',
+		'as' => 'dashboard.users',
+	]);
 
-Route::get('dashboard/items',[
-	'uses' => 'DashboardController@getItems',
-	'as'   => 'dashboard.items',
-	'middleware' => ['auth', 'auth.admin'],
-]);
+	Route::get('{username}/update',[
+		'uses' => 'DashboardController@getUserUpdate',
+		'as' => 'dashboard.user.update',
+	]);
 
-Route::get('dashboard/item/add',[
-	'uses' => 'DashboardController@getItemAdd',
-	'as'   => 'dashboard.item.add',
-	'middleware' => ['auth', 'auth.admin'],
-]);
+	Route::post('{username}/update',[
+		'uses' => 'DashboardController@postUserUpdate',
+	]);
 
-Route::post('dashboard/item/add',[
-	'uses' => 'DashboardController@postItemAdd',
-	'middleware' => ['auth', 'auth.admin'],
-]);
+	Route::get('{username}/{action}/stop',[
+		'uses' => 'DashboardController@getUserSuspend',
+		'as'   => 'dashboard.user.delete',
+	]);
 
-Route::get('dashboard/{itemid}/updateitem',[
-	'uses' => 'DashboardController@getItemUpdate',
-	'as'   => 'dashboard.item.update',	
-	'middleware' => ['auth', 'auth.admin'],
-]);
+	/************************
+	* Dashboard discussions *
+	*************************/
 
-Route::post('dashboard/{itemid}/updateitem',[
-	'uses' => 'DashboardController@postItemUpdate',	
-	'middleware' => ['auth', 'auth.admin'],
-]);
+	Route::get('discussions',[
+		'uses' => 'DashboardController@getDiscussions',
+		'as' => 'dashboard.discussions',
+	]);
 
-Route::get('dashboard/{itemid}/deleteitem',[
-	'uses' => 'DashboardController@getItemDelete',	
-	'as'   => 'dashboard.item.delete',	
-	'middleware' => ['auth', 'auth.admin'],
-]);
+	Route::get('{discussionid}/updateDiscussion',[
+		'uses' => 'DashboardController@getDiscussionUpdate',
+		'as' => 'dashboard.discussion.update',
+	]);
+
+	Route::post('{discussionid}/updateDiscussion',[
+		'uses' => 'DashboardController@postDiscussionUpdate',
+	]);
+
+	Route::get('{discussionid}/deleteDiscussion',[
+		'uses' => 'DashboardController@getDiscussionDelete',
+		'as' => 'dashboard.discussion.delete',
+	]);
+
+	/******************
+	* Dashboard items *
+	*******************/
+
+	Route::get('items',[
+		'uses' => 'DashboardController@getItems',
+		'as'   => 'dashboard.items',
+	]);
+
+	Route::get('item/add',[
+		'uses' => 'DashboardController@getItemAdd',
+		'as'   => 'dashboard.item.add',
+	]);
+
+	Route::post('item/add',[
+		'uses' => 'DashboardController@postItemAdd',
+	]);
+
+	Route::get('{itemid}/updateitem',[
+		'uses' => 'DashboardController@getItemUpdate',
+		'as'   => 'dashboard.item.update',	
+	]);
+
+	Route::post('{itemid}/updateitem',[
+		'uses' => 'DashboardController@postItemUpdate',	
+	]);
+
+	Route::get('{itemid}/deleteitem',[
+		'uses' => 'DashboardController@getItemDelete',	
+		'as'   => 'dashboard.item.delete',
+	]);
+
+	/******************
+	* Dashboard items *
+	*******************/
+
+	Route::get('comments',[
+		'uses' => 'DashboardController@getComments',
+		'as'   => 'dashboard.comments'
+	]);
+
+	Route::get('{commentid}/commentUpdate',[
+		'uses' => 'DashboardController@getCommentUpdate',
+		'as'   => 'dashboard.comment.update'
+	]);
+
+	Route::post('{commentid}/commentUpdate',[
+		'uses' => 'DashboardController@postCommentUpdate',
+	]);
+
+	Route::get('{commentid}/deleteComment',[
+		'uses' => 'DashboardController@getCommentDelete',
+		'as'   => 'dashboard.comment.delete'
+	]);
+
+}); // end of dashboard group route
 
 /*
 |--------------------------------------------------------------------------

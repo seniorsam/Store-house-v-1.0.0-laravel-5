@@ -1,6 +1,9 @@
 @extends('templates.default')
+@section('title')
+Store house | Available items
+@stop
 @section('content')
-<h2>Available items in the store house</h2>
+<h2>Available items in the store house:</h2>
 <hr>
 <div class="row">
 	@if($items->count() == 0)

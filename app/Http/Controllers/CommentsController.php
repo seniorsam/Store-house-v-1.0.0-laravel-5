@@ -5,6 +5,7 @@ use Auth;
 use storeHouse\Models\User;
 use storeHouse\Models\Discussion;
 use storeHouse\Models\Comment;
+use storeHouse\Models\Log;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller {
@@ -15,17 +16,36 @@ class CommentsController extends Controller {
 			'comm_body' => 'required'
 		]);
 
+		// check if there is a user and discussion with this info
 		$user = User::find(Auth::user()->id);
 		$discussion = Discussion::find($request->input('discussion_id'));
 
-		$comment = Comment::create([
-			'comm_body' => $request->input('comm_body')
-		]);
+		$returnMessage = 'Comment added: wait for admin approval';
 
-		// ->$user->comments->associate(Auth::user()->id);
-		$user->comments()->save($comment);
-		$discussion->comments()->save($comment);
+		if($user && $discussion){ // if founded
 
-		return redirect()->back()->withInfo('Comment added');
+			$comment = Comment::create([
+				'comm_body' => $request->input('comm_body')
+			]);
+
+			$user->comments()->save($comment);
+			$discussion->comments()->save($comment);
+
+			
+			$logRecord = Auth::user()->username
+						.' commented on a discussion titled as '
+						.'"'.$discussion->disc_title.'"'
+						.' by '
+						.'"'.$discussion->users->username.'"';
+
+			Log::create([
+				'log' => $logRecord,
+			]);
+
+		} else {
+			$returnMessage = 'Problem occured please try again';
+		}
+
+		return redirect()->back()->withInfo($returnMessage);
 	}
 }

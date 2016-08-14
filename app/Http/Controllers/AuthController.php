@@ -30,13 +30,15 @@ class AuthController extends controller {
 		/*
 		*add user data to database
 		*/
-		User::create([
+		$insert = User::create([
 			'username' => $request->input('username'),
 			'email'    => $request->input('email'),
 			'password' => bcrypt($request->input('password')),
 		]);
 
-		return redirect()->route('auth.signin')->withInfo('You signed up successfully: Now you can login');
+		$message = ($operation) ? 'You signed up successfully': 'Problem occured';
+
+		return redirect()->route('auth.signin')->withInfo($message);
 	}
 
 	/*
@@ -74,7 +76,7 @@ class AuthController extends controller {
 	*/
 
 	public function getSignout(){
-		Auth::logout();
+		$logout = Auth::logout();		
 		return redirect()->route('home');
 	}
 

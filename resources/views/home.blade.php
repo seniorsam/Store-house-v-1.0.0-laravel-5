@@ -1,5 +1,7 @@
 @extends('templates.default')
-
+@section('title')
+Welcome to store house | Home page
+@stop
 @section('content')
 	<div class="panel panel-primary">
 		<div class="panel-heading"><h4><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Store timeline</h4></div>
@@ -19,9 +21,10 @@
 				</div>
 				<span class="label label-default">By: {{$discussion->users->username}}</span>
 				<span class="label label-default">{{$discussion->created_at->diffForHumans()}}</span>
-				<span class="label label-default">{{$discussion->comments->count()}} comment</span>
+				<span class="label label-default">{{$discussion->comments()->active()->count()}} comment</span>
 			<hr>
 			@endforeach
+			<?php echo $discussions->render(); ?>
 			@endif
 		</div>
 	</div>

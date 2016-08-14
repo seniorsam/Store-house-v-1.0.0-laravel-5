@@ -1,4 +1,7 @@
 @extends('templates.default')
+@section('title')
+Store house | Search results ...
+@stop
 @section('content')
 <h2>Search results for "{{Request::input('searchword')}}"</h2>
 <hr>

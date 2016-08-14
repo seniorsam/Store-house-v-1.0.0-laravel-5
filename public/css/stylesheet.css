@@ -1,3 +1,25 @@
+.navbar-classic{
+	background-color: #fbfbfb;
+	border-radius: 0px;
+	box-shadow: 0px 0px 5px #c7c7c7;
+}
+
 .marg-bottom-spacing {
 	margin-bottom: 20px;
+}
+
+.mylabel {
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+}
+
+.label-white{
+	background-color: #fff;
+	color:#565656;
+}
+
+.margin-tb-spacing{
+    margin-top: 35px;
+    margin-bottom: 35px;
 }

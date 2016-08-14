@@ -1,4 +1,7 @@
 @extends('templates.default')
+@section('title')
+Store house | sign in
+@stop
 @section('content')
 	<div class="panel panel-primary">
 		<div class="panel-heading"><h4><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Sign in</h4></div>

@@ -1,4 +1,7 @@
 @extends('templates.default')
+@section('title')
+Store house | Start a new discussion
+@stop
 @section('content')
 	<h2>Start a discussion:</h2>
 	<hr>

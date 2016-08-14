@@ -1,4 +1,7 @@
 @extends('templates.default')
+@section('title')
+Store house | sign up
+@stop
 @section('content')
 <!-- <span class="label label-default">Default</span> -->
 	<div class="panel panel-primary">

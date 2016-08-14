@@ -1,4 +1,7 @@
 @extends('templates.default')
+@section('title')
+Store house | Dashboard single discussion
+@stop
 @section('content')
 	<h2>{{$discussion->disc_title}}</h2>
 	<hr>

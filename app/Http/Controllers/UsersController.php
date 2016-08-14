@@ -11,11 +11,11 @@ class UsersController extends Controller {
 	{
 		$user = User::where('username',$username)->first();
 
-		$discussions = $user->discussions;
-
 		if(!$user) {
 			abort('404');
 		}
+
+		$discussions = $user->discussions()->active()->get();
 
 		return view('user.profile')
 			->withUser($user)
@@ -33,7 +33,7 @@ class UsersController extends Controller {
 			'phone'   => 'max:255|digits:11',
 		]);
 
-		DB::table('sthusers')
+		$update = DB::table('sthusers')
 		    ->where('id', Auth::user()->id)
 		    ->update([
 				'address' => $request->input('address'),
@@ -41,7 +41,9 @@ class UsersController extends Controller {
 		]);
 
 
-		return redirect()->route('user.profile',['username' => Auth::user()->username])->withInfo('Your information updated');
+		$message = ($update) ? 'Your information updated': 'Problem occured: please try again';
+
+		return redirect()->route('user.profile',['username' => Auth::user()->username])->withInfo($message);
 
 	}
 

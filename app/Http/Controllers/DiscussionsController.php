@@ -3,6 +3,7 @@
 use Auth;
 use storeHouse\Models\User;
 use storeHouse\Models\Discussion;
+use storeHouse\Models\Log;
 use Illuminate\Http\Request;
 
 class DiscussionsController extends controller {
@@ -22,20 +23,43 @@ class DiscussionsController extends controller {
 
 		$user = User::find(Auth::user()->id);
 
+		if(!$user){
+			abort('404');
+		}
+
 		$disc = Discussion::create([
 			'disc_title' => $request->input('disc_title'),
 			'disc_body' => $request->input('disc_body'),
 		]);
 
-		$user->discussions()->save($disc);
+		$save = $user->discussions()->save($disc);
 
-		return redirect()->route('home')->withInfo('Discussion started');
+
+		// create log
+		$logRecord = Auth::user()->username
+					.' started a new discussion titled as '
+					.'"'.$request->input('disc_title').'"';
+
+		$saveLog = Log::create([
+			'log' => $logRecord,
+		]);
+
+        $message = ($save) ? 'Discussion started: wait for admin approval' : 'Problem occured: please try again';
+
+		return redirect()->route('home')->withInfo($message);
 
 	}
 
 	public function getSingleDiscussion($discussionid){
+
 		$discussion = Discussion::find($discussionid);
-		$comments   = $discussion->comments;
+
+		if(!$discussion){
+			abort('404');
+		}
+
+		$comments   = $discussion->comments()->active()->get();
+
 		return view('discussion.single')
 			->withDiscussion($discussion)
 			->withComments($comments);

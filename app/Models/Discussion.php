@@ -9,6 +9,7 @@ class Discussion extends Model {
 	protected $fillable = [
 		'disc_title',  
 		'disc_body', 
+		'active', 
 	];
 
 	public function users(){
@@ -17,6 +18,10 @@ class Discussion extends Model {
 
 	public function comments(){
 		return $this->hasMany('storeHouse\Models\Comment','sthdiscussion_id');
+	}
+
+	public function scopeActive($query){
+		return $query->where('active', 1);
 	}
 
 }

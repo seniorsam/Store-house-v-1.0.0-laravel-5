@@ -17,7 +17,7 @@ class ItemsController extends Controller {
 			'searchword' => 'required'
 		]);
 
-		$items = Item::where('item_name','like','%'.$request->input('searchword').'%')->get();
+		$items = Item::active()->where('item_name','like','%'.$request->input('searchword').'%')->get();
 
 		return view('item.search')->withItems($items);
 	}

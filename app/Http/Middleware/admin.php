@@ -3,7 +3,7 @@
 use Closure;
 use Auth;
 
-class admin {
+class Admin {
 
 	/**
 	 * Handle an incoming request.

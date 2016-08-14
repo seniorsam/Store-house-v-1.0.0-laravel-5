@@ -17,7 +17,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	'email', 
 	'address',
 	'phone',
-	'password'
+	'password',
+	'active',
+	'suspend'
 	];
 
 	protected $hidden   = [
@@ -42,5 +44,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function comments(){
 		return $this->hasMany('storeHouse\Models\Comment','sthuser_id');		
+	}
+
+	public function cars(){
+		return $this->hasMany('storeHouse\Models\Car','sthusers_id');				
+	}
+
+	public function scopeActive($query){
+		return $query->where('active', '1');
 	}
 }

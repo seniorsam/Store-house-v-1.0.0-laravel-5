@@ -1,4 +1,7 @@
 @extends('templates.default')
+@section('title')
+Store house | Update your profile
+@stop
 @section('content')
 	<h2>Update:</h2>
 	<form method="post" action="{{route('user.profile.update')}}">
