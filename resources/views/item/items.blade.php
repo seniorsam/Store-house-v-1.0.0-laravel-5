@@ -15,10 +15,11 @@ Store house | Available items
 			@foreach($items as $item)
 				<div class="col-md-12 marg-bottom-spacing">
 					<div class="col-md-2">
+
 							@if(!$item->item_picture)
-								<img class="img-responsive" src="/images/itemPictures/thumb.jpg" alt="empty">
+								<img class="img-responsive" src="/images/items-pictures/thumb.jpg" alt="empty">
 							@else
-								<img class="img-responsive" src="/images/itemPictures/{{$item->item_picture}}" alt="empty">
+								<img class="img-responsive" src="/images/items-pictures/{{$item->item_picture}}" alt="empty">
 							@endif	
 					</div>
 					<div class="col-md-10">

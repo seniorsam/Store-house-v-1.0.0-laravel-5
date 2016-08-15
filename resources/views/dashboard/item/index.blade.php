@@ -19,8 +19,8 @@ Store house | Dashboard items
 					<th>Picture</th> 
 					<th>Quantity</th> 
 					<th>Description</th> 
-					<th class="text-success">State</th> 
 					<th>Insertd by</th>  
+					<th class="text-success">State</th> 
 					<th class="text-info">Actions</th>  
 					<th class="text-danger">Delete</th> 
 				</tr> 
@@ -31,17 +31,18 @@ Store house | Dashboard items
 						<th scope="row">{{$item->id}}</th> 
 						<td>{{$item->item_name}}</th> 
 						<td>
-							<img width="100px" height="auto" src="/images/itemPictures/{{$item->item_picture ? $item->item_picture : 'thumb.jpg'}}" alt="{{$item->item_picture}}">
+							<img width="100px" height="auto" src="/images/items-pictures/{{$item->item_picture ? $item->item_picture : 'thumb.jpg'}}" alt="{{$item->item_picture}}">
 						</td> 
 						<td>{{$item->item_quantity}}</td> 
 						<td>{{$item->item_description}}</td> 
-						<td class="text-success">{{$item->item_active ? 'published' : 'not published'}}</td> 
 						<td>{{$item->users->username}}</td> 
+						<td class="text-success">
+							<strong>
+								{{$item->item_active ? 'published' : 'not published'}}
+							</strong>
+						</td> 
 						<td>
-							<!-- <a href="#" title="mail this user"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a> -->
 							<a href="{{route('dashboard.item.update',['itemid'=>$item->id])}}" title="update this item"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-							<!-- <a href="#" title="promote this user"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a> -->
-							<!-- <a href="#" title="deactive this user"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> -->
 						</td>
 						<td><a class="deleteUserFromDashboard text-danger" href="{{route('dashboard.item.delete',['itemid'=>$item->id])}}" title="delete this item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td> 
 					</tr>

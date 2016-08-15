@@ -19,6 +19,9 @@ Welcome to store house | Home page
 					</a>
 					{{$discussion->disc_body}}.
 				</div>
+				<span>
+					<img src="{{$discussion->users->getUserAvatar()}}" alt="{{$discussion->users->username}}">
+				</span>
 				<span class="label label-default">By: {{$discussion->users->username}}</span>
 				<span class="label label-default">{{$discussion->created_at->diffForHumans()}}</span>
 				<span class="label label-default">{{$discussion->comments()->active()->count()}} comment</span>
